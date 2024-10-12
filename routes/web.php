@@ -6,7 +6,7 @@ use App\Http\Controllers\UrlRedirectController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::name('dashboard.')->prefix('dashboard')->group(function () {
+Route::name('dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'dashboard'])->name('home');
     Route::get('/analytics-url/{shortUrl}', [DashboardController::class, 'analyticsUrl'])->name('analytics-url');
 });
