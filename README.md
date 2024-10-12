@@ -5,7 +5,8 @@ This is a [Laravel](https://laravel.com/) project. To set it up and run locally,
 
 ## Prerequisites
 Make sure you have the following installed on your machine:
-- **PHP** (>= 8.0)
+- **PHP** (>= 8.2.0)
+- **Laravel** (>= 11.0)
 - **Composer** (Dependency Manager for PHP)
 - **MySQL** or any supported database
 - **Git** (optional, but recommended)
@@ -32,12 +33,12 @@ cp .env.example .env
 ```
 Open the .env file and configure your environment variables, particularly:
 
-DB_CONNECTION
-DB_HOST
-DB_PORT
-DB_DATABASE
-DB_USERNAME
-DB_PASSWORD
+- `DB_CONNECTION`
+- `DB_HOST`
+- `DB_PORT`
+- `DB_DATABASE`
+- `DB_USERNAME`
+- `DB_PASSWORD`
 For example:
 
 ```bash
