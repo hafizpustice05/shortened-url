@@ -5,7 +5,8 @@ This is a [Laravel](https://laravel.com/) project. To set it up and run locally,
 
 ## Prerequisites
 Make sure you have the following installed on your machine:
-- **PHP** (>= 8.0)
+- **PHP** (>= 8.2.0)
+- **Laravel** (>= 11.0)
 - **Composer** (Dependency Manager for PHP)
 - **MySQL** or any supported database
 - **Git** (optional, but recommended)
