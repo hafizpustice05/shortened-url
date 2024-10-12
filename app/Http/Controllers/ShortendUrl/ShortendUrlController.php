@@ -30,11 +30,6 @@ class ShortendUrlController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        if (RateLimiter::tooManyAttempts('shorten-url', 5)) {
-            dd('yes');
-            abort(Response::HTTP_TOO_MANY_REQUESTS, 'Rate limit exceeded. Please try again later.');
-        }
-
         $validator = Validator::make($request->all(), [
             'long_url' => ['required', 'url', 'active_url', 'max:2024'],
         ]);
