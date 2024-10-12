@@ -49,3 +49,30 @@ DB_USERNAME=your-username
 DB_PASSWORD=your-password
 
 ```
+
+### 4. Generate Application Key
+Generate a new application key using the following command:
+
+```bash
+php artisan key:generate
+```
+This key is used to secure encrypted data within your application.
+
+### 5. Set Up the Database
+Ensure you have created a database in MySQL (or the database system you use). Then, run migrations to create the necessary database tables:
+
+```bash
+php artisan migrate
+```
+
+### 6. Run the Project
+Option 1: Using Laravel's Built-In Development Server
+Start the Laravel development server by running:
+
+```bash
+php artisan serve
+```
+
+By default, the project will be available at `http://127.0.0.1:8000`
+
+
