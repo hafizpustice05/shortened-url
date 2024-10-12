@@ -33,12 +33,12 @@ cp .env.example .env
 ```
 Open the .env file and configure your environment variables, particularly:
 
-DB_CONNECTION
-DB_HOST
-DB_PORT
-DB_DATABASE
-DB_USERNAME
-DB_PASSWORD
+- `DB_CONNECTION`
+- `DB_HOST`
+- `DB_PORT`
+- `DB_DATABASE`
+- `DB_USERNAME`
+- `DB_PASSWORD`
 For example:
 
 ```bash
