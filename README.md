@@ -75,4 +75,20 @@ php artisan serve
 
 By default, the project will be available at `http://127.0.0.1:8000`
 
+# Troubleshooting
 
+### 1. Composer Memory Issues
+If you encounter memory limit errors during `composer install`, you can increase the memory limit temporarily by running:
+```bash
+php -d memory_limit=-1 /usr/local/bin/composer install
+```
+### 2. Common Issues
+Permission Issues: Make sure `storage` and `bootstrap/cache` directories are writable by the web server.
+```
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+```
+
+## Contact
+
+Md Hafizul Islam - [hafizpustice05@gmail.com](mailto:hafizpustice05@gmail.com)
