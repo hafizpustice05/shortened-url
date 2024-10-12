@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Models\AnalyticsUrl;
 use App\Models\MappingUrl;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\DB;
 
 class GeographicalLocation implements IGeographicalLocation
 {
@@ -19,9 +18,7 @@ class GeographicalLocation implements IGeographicalLocation
         $analyticsUrl->city = $analyticsData["city"] ?? "N/A";
         $analyticsUrl->region = $analyticsData["region"] ?? "N/A";
         $analyticsUrl->visited_at = now();
-        // $analyticsUrl->coordinates = DB::raw("ST_GeomFromText('POINT(23.7104 90.4074)', 4326)");
         $analyticsUrl->coordinates = $analyticsData["coordinates"] ?? "N/A";
-
         $mappingUrl->analyticsUrls()->save($analyticsUrl);
     }
 

@@ -7,6 +7,8 @@ use App\Services\IGeographicalLocation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UrlRedirectController extends Controller
 {
@@ -36,9 +38,15 @@ class UrlRedirectController extends Controller
          * IF this shortend is valid
          * Save geographical location data based on IP address
          */
-        $iGeographicalLocation->saveUserGeographicalLocationData($url, $request->ip());
-        $url->increment('click_count');
-
-        return redirect()->away($url->long_url);
+        try {
+            DB::beginTransaction();
+            $iGeographicalLocation->saveUserGeographicalLocationData($url, $request->ip());
+            $url->increment('click_count');
+            DB::commit();
+            return redirect()->away($url->long_url);
+        } catch (\Throwable $th) {
+            Log::error("Redirction error:" . $th->getMessage());
+            abort(Response::HTTP_NOT_FOUND, $th->getMessage());
+        }
     }
 }
