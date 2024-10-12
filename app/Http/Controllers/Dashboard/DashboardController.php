@@ -17,7 +17,7 @@ class DashboardController extends Controller
      */
     public function dashboard(): View
     {
-        $urls = MappingUrl::with("analyticsUrls")->paginate(10);
+        $urls = MappingUrl::with("analyticsUrls")->orderBy("id", "desc")->paginate(10);
         return view('dashboard', compact('urls'));
     }
 
@@ -35,7 +35,7 @@ class DashboardController extends Controller
             return redirect()->back();
         }
 
-        $analyticsUlrs = AnalyticsUrl::where("mapping_url_id", $url->id)->paginate(10);
+        $analyticsUlrs = AnalyticsUrl::where("mapping_url_id", $url->id)->orderBy("id", "desc")->paginate(10);
         return view('analytics-url', compact('analyticsUlrs', 'url'));
     }
 }

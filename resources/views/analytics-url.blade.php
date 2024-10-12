@@ -37,7 +37,7 @@
             </tr>
             @empty
             <tr>
-                <th colspan="5" class="text-center">There are no click details right now</th>
+                <th colspan="6" class="text-center">There are no click details right now</th>
             </tr>
             @endforelse
         </tbody>
