@@ -24,3 +24,28 @@ Run the following command to install PHP dependencies:
 ```bash
 composer install
 ```
+
+### 3. Set Up Environment Variables
+Copy the .env.example file to .env:
+```
+cp .env.example .env
+```
+Open the .env file and configure your environment variables, particularly:
+
+DB_CONNECTION
+DB_HOST
+DB_PORT
+DB_DATABASE
+DB_USERNAME
+DB_PASSWORD
+For example:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your-database-name
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+
+```
