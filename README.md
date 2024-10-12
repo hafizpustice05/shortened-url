@@ -18,7 +18,7 @@ To get started, clone the repository to your local machine:
 git clone git@github.com:hafizpustice05/shortened-url.git
 ```
 
-###2. Install Dependencies
+### 2. Install Dependencies
 Run the following command to install PHP dependencies:
 
 ```bash
