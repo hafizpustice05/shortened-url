@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AnalyticsUrl;
 use App\Models\MappingUrl;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
@@ -27,7 +28,7 @@ class DashboardController extends Controller
      * @param string $shortUrl
      * @return View
      */
-    public function analyticsUrl(string $shortUrl): View
+    public function analyticsUrl(string $shortUrl): View|RedirectResponse
     {
         $url = MappingUrl::where('shortened_url', $shortUrl)->first();
 
