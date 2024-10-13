@@ -7,10 +7,8 @@ use App\Models\MappingUrl;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Validator;
 
 class ShortendUrlController extends Controller
@@ -31,7 +29,12 @@ class ShortendUrlController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'long_url' => ['required', 'url', 'active_url', 'max:2024'],
+            'long_url' => ['required', 'url', 'active_url', 'regex:/^(http|https):\/\//', 'max:2024'],
+        ], [
+            'long_url.required' => 'Please provide a URL.',
+            'long_url.url' => 'Enter a valid URL format.',
+            'long_url.regex' => 'The URL must begin with either http or https.',
+            'long_url.max' => 'The URL can be up to :max characters long.',
         ]);
 
         if ($validator->fails()) {
@@ -68,9 +71,9 @@ class ShortendUrlController extends Controller
                 return redirect()->back()->withInput()->with('success', 'Your shortend url generated successfully.');
             } catch (\Throwable $th) {
                 Log::error("Shorting ulr error: " . $th->getMessage());
+                return redirect()->back()->with('error', $th->getMessage());
             }
         }
-
         $request->merge(["shortendUrl" => config('app.url') . '/' . $existingUrl]);
         return redirect()->back()->withInput()->with('warning', 'You have already added this url.');
     }
@@ -78,6 +81,7 @@ class ShortendUrlController extends Controller
     public function urlDuplicationCheck(string $longUrl): string
     {
         $url = MappingUrl::where('long_url', $longUrl)->first();
+        Log::debug($url);
         if ($url) {
             return $url->shortened_url;
         }
