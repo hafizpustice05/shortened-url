@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Validator;
 class ShortendUrlController extends Controller
 {
     /**
-     * Undocumented variable
+     *
      * How many days url will have valid
-     * @var integer
+     * @const integer
      */
-    protected $urlExpiredDays = 30;
+    private const URL_EXPIRED_DAYS = 30;
 
     public function create(): View
     {
@@ -65,7 +65,7 @@ class ShortendUrlController extends Controller
                 $url = MappingUrl::create([
                     'long_url' => $validUrl,
                     'shortened_url' => $shortenedUrl,
-                    'expired_at' => (Carbon::now())->addDays($this->urlExpiredDays),
+                    'expired_at' => (Carbon::now())->addDays(self::URL_EXPIRED_DAYS),
                 ]);
                 $request->merge(["shortendUrl" => config('app.url') . '/' . $url->shortened_url]);
                 return redirect()->back()->withInput()->with('success', 'Your shortend url generated successfully.');

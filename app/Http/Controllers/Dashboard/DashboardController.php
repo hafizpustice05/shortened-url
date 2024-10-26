@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\AnalyticsUrl;
 use App\Models\MappingUrl;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Http;
@@ -16,7 +17,7 @@ class DashboardController extends Controller
      *
      * @return View
      */
-    public function dashboard(): View
+    public function dashboard()
     {
         $urls = MappingUrl::with("analyticsUrls")->orderBy("id", "desc")->paginate(10);
         return view('dashboard', compact('urls'));
@@ -26,7 +27,7 @@ class DashboardController extends Controller
      * Undocumented function
      *
      * @param string $shortUrl
-     * @return View
+     * @return View|RedirectResponse
      */
     public function analyticsUrl(string $shortUrl): View|RedirectResponse
     {
