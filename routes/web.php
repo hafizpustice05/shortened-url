@@ -25,6 +25,9 @@ Route::get("/test", function (IGeographicalLocation $iGeographicalLocation) {
     foreach ($placeholders as $key => $value) {
         $template = str_replace("{{$key}}", $value, $template);
     }
+
+
+
     return $template;
 });
 
