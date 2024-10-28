@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ShortendUrl\ShortendUrlController;
+use App\Http\Controllers\TestNotificationSettingController;
 use App\Http\Controllers\UrlRedirectController;
 use App\Services\IGeographicalLocation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+
+Route::get("test-1", [TestNotificationSettingController::class, "index"]);
 Route::get("/test", function (IGeographicalLocation $iGeographicalLocation) {
 
     $placeholders = [
