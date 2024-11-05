@@ -44,7 +44,8 @@ class TestQueryBuilderController extends Controller
             ->from("category as cat")
             ->join("flim as f", "f.id", "cat.id")
             ->join("language as lan", function ($join) {
-                $join->on("lan.id", "cat.id")
+                $join
+                    ->on("lan.id", "cat.id")
                     ->where("lan.name", "Bangli");
             })->groupBy("cat.name")->orderBy("flim_count", "DESC")->get();
 
@@ -53,7 +54,8 @@ class TestQueryBuilderController extends Controller
             ->select(["flim.*"])
             ->where("title", "LIKE", "k%")
             ->whereIn("language_id", function ($query) {
-                $query->select("language_id")->from("language")
+                $query->select("language_id")
+                    ->from("language")
                     ->where("name", "Benglai");
             })->orderBy("title")->get();
     }

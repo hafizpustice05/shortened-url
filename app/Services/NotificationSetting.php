@@ -11,9 +11,9 @@ class NotificationSetting
     public const BIDDER_TOPIC_3 = 103;
 
     public const STATUS_CODES = [
-        "BIDDER_TOPIC_0" => 100,
-        "BIDDER_TOPIC_1" => 101,
-        "BIDDER_TOPIC_2" => 102,
-        "BIDDER_TOPIC_3" => 103,
+        "100" => "BIDDER_TOPIC_0",
+        "101" => "BIDDER_TOPIC_1",
+        "102" => "BIDDER_TOPIC_2",
+        "103" => "BIDDER_TOPIC_3"
     ];
 }

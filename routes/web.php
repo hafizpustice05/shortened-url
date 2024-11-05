@@ -9,27 +9,26 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
-
-Route::get("test-1", [TestNotificationSettingController::class, "index"]);
-Route::get("/test", function (IGeographicalLocation $iGeographicalLocation) {
+Route::get('test-1', [TestNotificationSettingController::class, 'index']);
+Route::get('/test', function (IGeographicalLocation $iGeographicalLocation) {
 
     $placeholders = [
-        'FIRST_NAME'  => "Md. hafizul Islam",
-        'EMAIL' => "hafiz",
-        'PASSWORD' => "123",
-        'ROLE' => "34",
-        'LOGIN_URL' => "4545"
+        'FIRST_NAME' => 'Md. hafizul Islam...',
+        'EMAIL'      => 'hafiz',
+        'PASSWORD'   => '123',
+        'ROLE'       => '34',
+        'LOGIN_URL'  => '4545'
     ];
 
-    if ($placeholders instanceof Arr) return "array";
+    if ($placeholders instanceof Arr) {
+        return 'array';
+    }
 
     $template = DB::table('email_templates')->where('id', 1)->first()->body;
 
     foreach ($placeholders as $key => $value) {
         $template = str_replace("{{$key}}", $value, $template);
     }
-
-
 
     return $template;
 });
@@ -43,7 +42,7 @@ Route::get('shortenurl', [ShortendUrlController::class, 'create']);
 
 Route::middleware('throttle:shorten-url')->group(function () {
     Route::post('shortenurl', [ShortendUrlController::class, 'store'])->name('shortenurl');
-});;
+});
 
 /**
  * short-url redirect route
