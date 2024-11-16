@@ -60,6 +60,18 @@ class TestQueryBuilderController extends Controller
             })->orderBy("title")->get();
 
         //  unique row select in db
+        /*
+        SELECT `plan`.*,
+           Ifnull(ac_plan.tax, 0) AS tax
+        FROM   (SELECT DISTINCT `plan_name`,
+                        `plan_id`
+        FROM   `subscription_plan`) AS `plan`
+       LEFT JOIN (SELECT `plan`.`plan_name`,
+                         `plan`.`tax`
+                  FROM   `subscription_plan` AS `plan`
+                  WHERE  `plan`.`interval_count` = ?) AS `ac_plan`
+              ON `ac_plan`.`plan_name` = `plan`.`plan_name` 
+        */
          DB::query()
             ->select([
                 'plan.*',
