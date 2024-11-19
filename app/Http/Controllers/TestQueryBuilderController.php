@@ -58,5 +58,38 @@ class TestQueryBuilderController extends Controller
                     ->from("language")
                     ->where("name", "Benglai");
             })->orderBy("title")->get();
+
+        //  unique row select in db
+        /*
+        SELECT `plan`.*,
+           Ifnull(ac_plan.tax, 0) AS tax
+        FROM   (SELECT DISTINCT `plan_name`,
+                        `plan_id`
+        FROM   `subscription_plan`) AS `plan`
+       LEFT JOIN (SELECT `plan`.`plan_name`,
+                         `plan`.`tax`
+                  FROM   `subscription_plan` AS `plan`
+                  WHERE  `plan`.`interval_count` = ?) AS `ac_plan`
+              ON `ac_plan`.`plan_name` = `plan`.`plan_name` 
+        */
+         DB::query()
+            ->select([
+                'plan.*',
+                DB::raw('IFNULL(ac_plan.tax, 0) as tax')
+            ])
+            ->fromSub(function ($query) {
+                $query->select([
+                    'plan_name',
+                    'plan_id'
+                ])
+                    ->from('subscription_plan')
+                    ->distinct();
+            }, 'plan')
+            ->leftJoinSub(function ($query) {
+                $query->select('plan.plan_name', 'plan.tax')
+                    ->from('subscription_plan as plan')
+                    ->where('plan.interval_count', 3);
+            }, 'ac_plan', 'ac_plan.plan_name', 'plan.plan_name')
+            ->get();
     }
 }
