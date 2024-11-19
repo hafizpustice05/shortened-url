@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageNotification;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ShortendUrl\ShortendUrlController;
 use App\Http\Controllers\TestNotificationSettingController;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('test-1', [TestNotificationSettingController::class, 'index']);
 Route::get('/test', function (IGeographicalLocation $iGeographicalLocation) {
 
+
+    broadcast(new MessageNotification('this is the first messahe'))->toOthers();
     $placeholders = [
         'FIRST_NAME' => 'Md. hafizul Islam...',
         'EMAIL'      => 'hafiz',

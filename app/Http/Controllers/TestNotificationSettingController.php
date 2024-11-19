@@ -8,6 +8,7 @@ class TestNotificationSettingController extends Controller
 {
     public static function index(): mixed
     {
+        return view('pusher.lisen');
         $settings = NotificationSetting::STATUS_CODES;
 
         $arr = [
