@@ -10,6 +10,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+
+//test
 Route::get('test-1', [TestNotificationSettingController::class, 'index']);
 Route::get('/test', function (IGeographicalLocation $iGeographicalLocation) {
 
