@@ -1,0 +1,26 @@
+name: Deploying docker Image pust to Dokcder Hub
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  image-push:
+    name: push-image-to-github
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Action started"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run a one line script
+        run: echo "Hi Hafiz"
+      - name: Run a one line script
+        run: |
+          echo "Hafiz"
+          echo "ul Islam"
+      - name: List File
+        run: ls ${{ github.workspace }}
+      - name: Github COntext
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"

@@ -1,95 +1,57 @@
-# Laravel Project
+# Laravel with docker setup!
 
-## Introduction
-This is a [Laravel](https://laravel.com/) project. To set it up and run locally, follow the instructions below.
+To run this project you simply need to have docker and docker-compose installed in your system. Any dependency of php, composer, MySql, phpMyAdmin is not mandatory
 
-## Prerequisites
-Make sure you have the following installed on your machine:
-- **PHP** (>= 8.2.0)
-- **Laravel** (>= 11.0)
-- **Composer** (Dependency Manager for PHP)
-- **MySQL** or any supported database
-- **Git** (optional, but recommended)
+# Requirements
 
-## Getting Started
+- Docker
+- Docker-compose
 
-### 1. Clone the Repository
-To get started, clone the repository to your local machine:
-```bash
-git clone git@github.com:hafizpustice05/shortened-url.git
-```
+## Executing commands
 
-### 2. Install Dependencies
-Run the following command to install PHP dependencies:
+As we are using docker we don't want to run any npm, php or composer command with our local environment. Instead we will let docker to handle these. Simple shell scripts are added in to project to simplify running thoose commands.
 
-```bash
-composer install
-```
+### **Composer**
 
-### 3. Set Up Environment Variables
-Copy the .env.example file to .env:
-```
-cp .env.example .env
-```
-Open the .env file and configure your environment variables, particularly:
+For composer we can use composer.sh to run composer commands. For example
 
-- `DB_CONNECTION`
-- `DB_HOST`
-- `DB_PORT`
-- `DB_DATABASE`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-For example:
+    ./composer.sh install
 
-```bash
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=your-database-name
-DB_USERNAME=your-username
-DB_PASSWORD=your-password
+### **Artisan**
 
-```
+Also, we can use artisan.sh to run artisan commands. For example
 
-### 4. Generate Application Key
-Generate a new application key using the following command:
+    ./artisan.sh make:Model TestModel
 
-```bash
-php artisan key:generate
-```
-This key is used to secure encrypted data within your application.
+### Note:
 
-### 5. Set Up the Database
-Ensure you have created a database in MySQL (or the database system you use). Then, run migrations to create the necessary database tables:
+If you face any permission denied error while executing these command, you need to give executable permission to that scripts.
 
-```bash
-php artisan migrate
-```
+    sudo chmod 744 composer.sh
+    sudo chmod 744 artisan.sh
 
-### 6. Run the Project
-Option 1: Using Laravel's Built-In Development Server
-Start the Laravel development server by running:
+Or you can run
 
-```bash
-php artisan serve
-```
+    sudo chmod 744 composer.sh artisan.sh
 
-By default, the project will be available at `http://127.0.0.1:8000`
+## Running Project Locally
 
-# Troubleshooting
+Make sure you have .env file ready properly in src folder. We must set a DB_USERNAME and DB_PASSWORD value to successfully run mysql server
 
-### 1. Composer Memory Issues
-If you encounter memory limit errors during `composer install`, you can increase the memory limit temporarily by running:
-```bash
-php -d memory_limit=-1 /usr/local/bin/composer install
-```
-### 2. Common Issues
-Permission Issues: Make sure `storage` and `bootstrap/cache` directories are writable by the web server.
-```
-chmod -R 775 storage
-chmod -R 775 bootstrap/cache
-```
+    docker-compose --env-file ./src/.env up --build
 
-## Contact
+To run docker in detached mode
 
-Md Hafizul Islam - [hafizpustice05@gmail.com](mailto:hafizpustice05@gmail.com)
+    docker-compose --env-file ./src/.env up -d --build
+
+Run migrations using artisan.sh
+
+    ./artisan.sh migrate
+
+Finally, the laravel server will be at
+
+    localhost:8000
+
+phpMyAdmin will be at
+
+    localhost:9090

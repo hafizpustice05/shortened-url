@@ -1,0 +1,90 @@
+version: "3"
+
+services:
+  # PHP Service
+  php:
+    build:
+      context: .
+      dockerfile: php/Dockerfile
+    container_name: app
+    restart: unless-stopped
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html
+    volumes:
+      - ./src:/var/www/html
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  # Nginx Service
+  webserver:
+    image: nginx:stable
+    container_name: webserver
+    restart: unless-stopped
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    working_dir: /var/www/html
+    ports:
+      - "8000:80"
+      - "443:443"
+    networks:
+      - app-network
+
+  # MySql Database
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "4306:3306"
+    env_file: ./src/.env
+    # secrets:
+    #   - db_pass
+    environment:
+      # MYSQL_DATABASE: laravel-admin-test
+      # MYSQL_ROOT_PASSWORD: password
+      # MYSQL_USER: root1
+      # MYSQL_PASSWORD: password
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      # MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db_pass
+    volumes:
+      - db-data:/var/lib/mysql/
+    networks:
+      - app-network
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    depends_on:
+      - mysql
+    # secrets:
+    #   - db_pass
+    env_file: ./src/.env
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "9090:80"
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+    driver: local
+
+secrets:
+  db_pass:
+    external: true
+    # environment: "DB_PASS"
+
+networks:
+  app-network:

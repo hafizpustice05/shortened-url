@@ -1,0 +1,18 @@
+[0;1;31m×[0m elasticsearch.service - Elasticsearch
+     Loaded: loaded (/lib/systemd/system/elasticsearch.service; enabled; vendor preset: enabled)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Thu 2025-01-16 14:25:18 +06; 17min ago
+       Docs: https://www.elastic.co
+    Process: 76509 ExecStart=/usr/share/elasticsearch/bin/systemd-entrypoint -p ${PID_DIR}/elasticsearch.pid --quiet [0;1;31m(code=exited, status=78)[0m
+   Main PID: 76509 (code=exited, status=78)
+        CPU: 29.114s
+
+জানু 16 14:25:09 Hafizul systemd-entrypoint[76509]: Jan 16, 2025 2:25:09 PM sun.util.locale.provider.LocaleProviderAdapter <clinit>
+জানু 16 14:25:09 Hafizul systemd-entrypoint[76509]: WARNING: COMPAT locale provider will be removed in a future release
+জানু 16 14:25:17 Hafizul systemd-entrypoint[76509]: ERROR: [2] bootstrap checks failed. You must address the points described in the following [2] lines before starting Elasticsearch.
+জানু 16 14:25:17 Hafizul systemd-entrypoint[76509]: bootstrap check failure [1] of [2]: the default discovery settings are unsuitable for production use; at least one of [discovery.seed_hosts, discovery.seed_providers, cluster.initial_master_nodes] must be configured
+জানু 16 14:25:17 Hafizul systemd-entrypoint[76509]: bootstrap check failure [2] of [2]: Transport SSL must be enabled if security is enabled on a [basic] license. Please set [xpack.security.transport.ssl.enabled] to [true] or disable security by setting [xpack.security.enabled] to [false]
+জানু 16 14:25:17 Hafizul systemd-entrypoint[76509]: ERROR: Elasticsearch did not exit normally - check the logs at /var/log/elasticsearch/opensivekernel.log
+জানু 16 14:25:18 Hafizul systemd[1]: [0;1;39m[0;1;31m[0;1;39melasticsearch.service: Main process exited, code=exited, status=78/CONFIG[0m
+জানু 16 14:25:18 Hafizul systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185melasticsearch.service: Failed with result 'exit-code'.[0m
+জানু 16 14:25:18 Hafizul systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start Elasticsearch.[0m
+জানু 16 14:25:18 Hafizul systemd[1]: elasticsearch.service: Consumed 29.114s CPU time.
