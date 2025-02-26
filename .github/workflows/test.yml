@@ -13,14 +13,12 @@ jobs:
       - name: Set Up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2" # Set PHP version
+          php-version: "8.3" # Set PHP version
           extensions: mbstring, pdo, pdo_mysql # Add necessary extensions
           coverage: none # Disable Xdebug unless needed
 
       - name: Install Composer Dependencies
-        run: |
-          cd src
-          composer install --optimize-autoloader
+        run: cd src && composer install
 
       - name: Run Tests
         run: cd src && php artisan test
