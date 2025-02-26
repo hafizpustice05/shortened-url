@@ -40,7 +40,7 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY src /var/www/html
 
 # Copy existing application directory permissions
-COPY --chown=www:www src /var/www/html
+# COPY --chown=www:www src /var/www/html
 
 # Change current user to www
 USER www
