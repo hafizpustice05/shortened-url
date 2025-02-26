@@ -18,7 +18,9 @@ jobs:
           coverage: none # Disable Xdebug unless needed
 
       - name: Install Composer Dependencies
-        run: composer install --optimize-autoloader
+        run: |
+          cd src
+          composer install --optimize-autoloader
 
       - name: Run Tests
-        run: php artisan test
+        run: cd src && php artisan test
