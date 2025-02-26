@@ -18,7 +18,7 @@ jobs:
           coverage: none # Disable Xdebug unless needed
 
       - name: Install Composer Dependencies
-        run: cd src && composer install
+        run: cd src && cp .env.example .env && composer install
 
       - name: Run Tests
         run: cd src && php artisan test
