@@ -1,0 +1,24 @@
+name: Laravel CI UNIT Test
+
+on: [push, pull_request] # Runs on push & pull requests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # Use Ubuntu as the environment
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4 # Pulls the repository code
+
+      - name: Set Up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2" # Set PHP version
+          extensions: mbstring, pdo, pdo_mysql # Add necessary extensions
+          coverage: none # Disable Xdebug unless needed
+
+      - name: Install Composer Dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist --optimize-autoloader
+
+      - name: Run Tests
+        run: php artisan test
