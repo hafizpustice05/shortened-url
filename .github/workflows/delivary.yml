@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./php
           file: ./php/Dockerfile
           push: true
           tags: ${{ steps.meta.output.tags }}
