@@ -28,4 +28,4 @@ jobs:
           context: ./php
           file: ./php/Dockerfile
           push: true
-          tags: ${{ steps.meta.output.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
