@@ -18,7 +18,8 @@ class DashboardController extends Controller
     public function dashboard()
     {
         $urls = MappingUrl::with('analyticsUrls')->orderBy('id', 'desc')->paginate(10);
-        return view('dashboard', compact('urls'));
+
+        return view('da-test', compact('urls'));
     }
 
     /**

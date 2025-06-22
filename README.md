@@ -55,3 +55,18 @@ Finally, the laravel server will be at
 phpMyAdmin will be at
 
     localhost:9090
+
+docker rm -f nginx-webserver
+docker run -d --name nginx-webserver \
+ -p 8000:80 \
+ -v $(pwd)/src:/var/www/html \
+ -v $(pwd)/nginx/conf.d:/etc/nginx/conf.d \
+ --network laravel-network \
+ hafizpustic/nginx-webp-server:v.1.0.1
+
+docker run -d \
+ --name laravel-app \
+ -v $(pwd)/src:/var/www/html \
+ -w /var/www/html \
+ --network my-network \
+ your-dockerhub-username/laravel-app:latest

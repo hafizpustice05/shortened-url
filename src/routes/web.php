@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\MessageNotification;
+use App\Http\Controllers\BloomFilterController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\ElasticsearchController;
 use App\Http\Controllers\ShortendUrl\ShortendUrlController;
@@ -10,10 +11,14 @@ use App\Services\ElasticsearchService;
 use App\Services\IGeographicalLocation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Route;
 
 //test
-use App\Http\Controllers\BloomFilterController;
+use Illuminate\Support\Facades\Route;
+
+// Container::getInstance()->make(FilesystemFactory::class);
+
+Route::get('image-upload', [BloomFilterController::class, 'index']);
+Route::post('image-upload', [BloomFilterController::class, 'upload'])->name('image-upload');
 
 Route::get('/bloom-test', [BloomFilterController::class, 'testBloomFilter']);
 
@@ -24,6 +29,8 @@ Route::delete('/products/{id}', [ElasticsearchController::class, 'destroy']); //
 
 Route::get('test-1', [TestNotificationSettingController::class, 'index']);
 Route::get('/test', function (IGeographicalLocation $iGeographicalLocation) {
+
+    dd(app()['config']);
     $params = [
         'index' => 'products',
         'body'  => [
@@ -59,7 +66,7 @@ Route::get('/test', function (IGeographicalLocation $iGeographicalLocation) {
 });
 
 Route::name('dashboard.')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('home');
+    Route::get('/dashboard/test', [DashboardController::class, 'dashboard'])->name('home');
     Route::get('/analytics-url/{shortUrl}', [DashboardController::class, 'analyticsUrl'])->name('analytics-url');
 });
 
